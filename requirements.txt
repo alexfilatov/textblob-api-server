@@ -7,5 +7,5 @@ nltk==3.2.1
 numpy==1.11.1
 psutil==4.3.0
 textblob==0.11.1
-textblob-aptagger==0.2.0
+textblob-aptagger==0.3.0.dev0
 Werkzeug==0.11.10

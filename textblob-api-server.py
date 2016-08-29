@@ -1,8 +1,8 @@
-from text.blob import TextBlob
-from text.blob import Blobber
-from text.sentiments import NaiveBayesAnalyzer
-from text.np_extractors import ConllExtractor
-from text.taggers import NLTKTagger
+from textblob import TextBlob
+from textblob import Blobber
+from textblob.sentiments import NaiveBayesAnalyzer
+from textblob.np_extractors import ConllExtractor
+from textblob.taggers import NLTKTagger
 from textblob_aptagger import PerceptronTagger
 from flask import Flask, jsonify, abort, request, make_response, url_for, redirect
 import os, psutil
@@ -69,14 +69,14 @@ def index():
 
 @app.route('/textblob/api/sentiment', methods = ['POST'])
 def get_sentiment():
-    if not request.json or not 'text' in request.json:
-        abort(400)
+#    if not request.json or not 'text' in request.json:
+#        abort(400)
     blob = tb_factory.create_blob(request.json)
     if isinstance(blob.analyzer, NaiveBayesAnalyzer):
         classification, pos_probability, neg_probability = blob.sentiment
         return jsonify( { 'classification': classification, 'pos_probability': pos_probability, 'neg_probability': neg_probability } ), 200
     polarity, subjectivity = blob.sentiment
-    return jsonify( { 'polarity': polarity, 'subjectivity': subjectivity } ), 200        
+    return jsonify( { 'polarity': polarity, 'subjectivity': subjectivity } ), 200
 
 @app.route('/textblob/api/pos_tags', methods = ['POST'])
 def get_pos_tags():
